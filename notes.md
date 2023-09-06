@@ -197,3 +197,150 @@ Conhecemos as cláusulas de guarda
 Aprendemos a usar valores padrão em funções
 Vimos como definir cabeçalhos de funções
 Conhecemos convenções de nomenclatura de funções do Elixir
+
+####
+
+02-Tail recursion
+
+@@01
+Projeto da aula anterior
+
+Caso queira, você pode baixar aqui o projeto do curso no ponto em que paramos na aula anterior.
+
+https://github.com/alura-cursos/2310-elixir/archive/refs/tags/curso-2-aula-1.zip
+
+@@02
+Desafio tabuada
+
+[00:00] Pessoal, bem-vindo de volta a mais um capítulo desse treinamento onde nós estamos continuando nossos aprendizados com o Elixir depois de já ter visto um pouco da sintaxe básica e os principais detalhes.
+[00:11] Agora nós vamos falar de um tema que foi abordado no treinamento anterior, mas eu quero praticar um pouco e entrar em alguns detalhes. Nós falamos sobre recursão e eu deixei um desafio para implementarmos a tabuada, só que ao invés de exibir cada um dos itens da tabuada, cada um dos números das multiplicações, eu quero retornar uma lista.
+
+[00:30] Vamos tentar fazer isso, vamos implementar. Eu vou criar aqui um arquivo chamado "tabuada.exs", vou definir o módulo, defmodule MeuModulo.Tabuada do, e eu vou ter uma função pública que calcula a tabuada de algum número, de algum multiplicador, def calcula(multiplicador) do.
+
+[00:50] O que eu vou fazer com isso? Essa minha função calcula, precisa chamar a função que realiza realmente o cálculo da tabuada, porque eu não vou adicionar tudo aqui, certo? Essa função é somente o ponto de entrada para o meu módulo. O que eu posso criar? Eu vou criar uma função privada chamada tabuada, que recebe o produto um e o produto dois, ou seja, ela vai multiplicar um pelo outro, só isso. def tabuada(produto1, produto2).
+
+[01:14] Só que se eu retornar o produto1, multiplicado pelo produto2, eu não estou fazendo nada, então vamos lá com calma. Eu vou chamar a minha tabuada, com multiplicador sendo multiplicado, a princípio, por 1. Só que o que eu vou querer fazer? Essa minha tabuada, essa função tabuada vai se chamar de novo, só que com o produto2 sendo ele mais 1, ou seja, primeiro eu recebi a tabuada com o valor 1, então depois eu vou chamar a tabuada de novo, ela vai se chamar só que com o valor 2. Vamos adicionando as coisas.
+
+[01:48] Como que eu posso fazer? Eu vou transformar isso aqui em uma lista e eu vou adicionar a essa lista, então no final da lista eu vou chamar o resultado de tabuada passando o produto1 e o produto2 mais 1. defp tabuada(produto1, produto2) do [produto1 * produto2] ++ tabuada(produto1, produto2). Vamos recapitular o que vai acontecer aqui. Eu estou chamando a tabuada, a função tabuada, passando o multiplicador e 1, então o produto1 vai ser o multiplicador e produto2 vai ser 2.
+
+[02:13] Imagine que eu chamei a função calcula passando o 5, então vai chamar tabuada com o primeiro parâmetro 5 e o segundo parâmetro 1. Ele vai fazer 5 vezes 1, vai criar essa lista, e no final da lista ele vai adicionar o que essa tabuada retornar. Ela vai chamar de novo, só que primeiro parâmetro vai ser 5 e o segundo parâmetro 2, então ele vai criar essa outra lista e vai retornar juntando com essa daqui.
+
+[02:41] Só que no final isso vai ficar infinitamente acontecendo, eu nunca vou sair dessa minha execução. Eu preciso criar o nosso ponto de saída. Eu vou criar aqui a nossa função tabuada que recebe alguma coisa, o nosso produto1, só que eu não vou utilizar esse valor, já te mostro o porquê, e o produto2, 11. defp tabuada(produto1, 11).
+
+[02:59] O que isso quer dizer? Quando chamamos a própria função aqui, várias vezes, até chegar no número 11, nós vamos interromper a execução, ou seja, eu não vou mais continuar a recursão e vou retornar direto com uma lista vazia. O que eu estou fazendo? Estou chamando aqui a tabuada, eu chamo com 1, mais 1, até que o produto2 é 10, então vou fazer aquele meu 5 vezes 10 e adicionar no final dessa lista o resultado da chamada da função tabuada.
+
+[03:29] Só que aqui o 10 mais 1 vai ser 11, então nós vamos cair nessa função que simplesmente retorna uma lista vazia. Isso vai começar a sair da nossa recursão e no final nós vamos poder finalmente unir a lista no final. Dessa forma, eu tenho aqui a tabuada implementada, utilizando recursão e eu vou ter uma lista no final, se eu não escrevi nada errado, claro.
+
+[03:51] Vamos lá, abri o meu terminal interativo com essa tabuada e vamos lá. "Produto1 não é utilizado", aquele detalhe que provavelmente você viu antes de mim. Deixa eu fechar isso daqui. Como eu não estou utilizando isso, underscore, para o compilador não reclamar. Vamos de novo, agora sem aviso, posso executar MeuMódulo.Tabuada.calcula(5).
+
+defmodule MeuModulo.Tabuada do
+    def calcula(multiplicador) do
+        tabuada(multiplicador, 1)
+    end
+
+    defp tabuadall | 11h), do: []
+
+    defp tabuada(produtol, produto2) do
+    [produtol * produto2] ++ tabuada(produtol, produto2 + 1)
+    end
+endCOPIAR CÓDIGO
+[04:16] Tem lá a minha lista com os multiplicadores, com a tabuada de 5. 5, 10, 15, 20. Se eu passar aqui um 3 vai funcionar, se eu passar 9 vai funcionar perfeitamente. Dois detalhes: primeiro, uma coisa que eu não vou implementar, mas fica de desafio, de adicionar uma cláusula de guarda, para só fazer essas funções funcionarem com números inteiros acima de 0.
+
+[04:39] Se eu passar aqui um -3, por exemplo, nós até vamos ter a multiplicação, só que isso não faz sentido quando falamos de tabuada. Isso precisa ser um número inteiro acima de 0, até porque se eu passar um string aqui, eu nem sei o que acontece, eu nem testei isso. Nós vamos ter erro, perfeito, menos mal. Fica a dica do desafio de adicionar uma cláusula de guarda.
+
+[05:01] Agora, um outro detalhe que eu tinha comentado no treinamento anterior era sobre algo conhecido como Tail Recursion, que é quando a última operação de uma recursão é a própria recursão, ou seja, é a chamada para a função em si. Já aqui no nosso caso, não é isso que está acontecendo, nós estamos avaliando essa expressão.
+
+[05:21] Para avaliar essa expressão, o que acontece? Nós criamos essa lista, depois criamos essa lista e, no final, adicionamos essas duas. A última operação que está acontecendo aqui é isso, é a concatenação de duas listas. Nesse caso, eu não tenho Tail Recursion.
+
+[05:40] No próximo vídeo, eu volto para praticarmos como utilizar Tail Recursion, principalmente em um cenário como esse, onde estou acumulando valores, o que eu estou fazendo aqui é acumular essa lista, certo? Estou fazendo várias execuções para no final retornar um valor só, que é uma única lista. Vamos entender como que nós podemos implementar isso utilizando Tail Recursion no próximo vídeo.
+
+@@03
+Body recursion
+
+Nesse vídeo nós implementamos o desafio deixado no treinamento anterior de gerar uma lista com os valores da tabuada do número passado por parâmetro. Nós utilizamos uma técnica chamada body recursion.
+Qual o problema de se usar body recursion ao invés de tail recursion?
+
+A erlang vai precisar otimizar essa chamada para não ter uma stack se acumulando.
+ 
+Alternativa errada! Infelizmente essa otimização não vai ser possível.
+Alternativa correta
+A erlang não vai conseguir otimizar essa chamada e vamos ter uma stack se acumulando.
+ 
+Alternativa correta! Usando body recursion, temos a recursão que já conhecemos em linguagens imperativas. Assim, cada nova chamada da função adiciona um stack frame em nossa stack. Isso pode gerar um stack overflow caso tenhamos um nível alto de recursão.
+Alternativa correta
+Não há problemas em utilizar body recursion nesse caso.
+
+@@04
+Usando tail recursion
+
+[00:00] Pessoal, bem-vindos de volta. Vamos modificar essa implementação aqui para utilizar tail recursion. Quando nós não usamos tail recursion, o nome da técnica que é conhecido, como que nós fizemos aqui, é body recursion. Vamos falar mais sobre isso. Eu vou criar aqui um novo arquivo chamado "tabuada-tail.exs".
+[00:24] Eu vou chamar também de MeuModulo.Tabuada. Vou ter a mesma função calcula por um multiplicador e aqui eu vou chamar de novo a tabuada passando esse multiplicador e passando o número 1 para inicializar a recursão. defmodulo MeuModulo.Tabuada do def calcula(multiplicador) do tabuada(multiplicador, 1). "Vinicius, mas eu não poderia ter, por exemplo, adicionado esse 1 como o valor padrão e não ter esse método aqui calcula?" Posso.
+
+[00:56] Poderia, por exemplo, aqui já ter o valor do produto1 o valor padrão como 1, transformar isso aqui em público e isso aqui que vai ser executado direto. Posso fazer isso sem problema nenhum. Só preferi ter essa função separada para me organizar melhor, mas isso não faz diferença. Vou manter dessa forma. Vamos lá. Vou ter aqui a minha tabuada que recebe o produto1 e o produto2 e aqui nós vamos fazer algo parecido. defp tabuada(produto1, produto2).
+
+[01:23] Só que no final, eu sei que eu preciso chamar essa função, produto1 e produto2 mais 1. defp tabuada(produto1, produto2) do tabuada(produto1, produto2 + 1). Isso precisa ser minha última chamada. Já vou até criar aqui a definição de tabuada que ignora o primeiro parâmetro, recebe 11 como segundo e retorna uma lista vazia. Deixa eu simplificar isso aqui, adicionando tudo na mesma linha. Até aqui nada muito novo. Só que aí que vai entrar o detalhe: quando eu vou utilizar tail recursion para acumular algo, eu preciso de alguma forma ter esse valor sendo acumulado.
+
+[01:57] Vou precisar passar isso por parâmetro. Além de passar o multiplicador e o valor inicial da minha multiplicação, que é 1, que vai ser incrementada até chegar no 10, eu também vou passar os valores iniciais, que no caso é uma lista vazia, é nada. Quando eu chegar no final, eu vou pegar esses valores e retorná-los, ou seja, não vou adicionar mais nada porque eu já vou ter acumulado todos os valores.
+
+[02:21] Aqui eu vou receber esses valores e se eu receber esses valores eu preciso utilizá-los de alguma forma, então eu posso fazer aquilo, produto1 vezes o produto2, porque ainda não tinha feito essa multiplicação, e aqui eu vou unir com o quê? Com os meus valores. tabuada(produto1, produto2 + 1, [produto1 * produto2] ++ valores. Se eu não tenho nada, que é o caso aqui, no caso inicial, ele vai unir a multiplicação que eu tenho com nada, então vai começar com minha multiplicação.
+
+[02:48] Só que ele vai para a próxima interação antes disso. Esse valor da primeira interação vai ser adicionado no início de toda a lista. Isso é tail recursion. No caso, eu poderia ter várias operações aqui, poderia ter novos valores e separar isso em uma variável. Eu posso ter quantas operações eu quiser e utilizar aqui os novos valores, desde que a última coisa que eu faça é a recursão, é a chamada para a própria função.
+
+[03:17] Deixa eu voltar para não utilizar essa variável temporária, não preciso dela. O que eu tenho aqui é a última coisa que essa função faz é se chamar, é se executar, é chamar a si própria, e esse é o conceito de tail recursion. Se eu vier aqui e chamar o meu tabuada-tail, eu espero ter o mesmo resultado, então MeuModulo.Tabuada.calcula(5), eu vou ter a mesma lista, só que agora eu tenho ela ao contrário
+
+[03:46] Aqui entra um detalhe bastante interessante: o que acontece? Muitas vezes, quando eu trabalho com listas e tail recursion, eu vou entrar nesse cenário aqui. Eu posso tentar modificar a implementação, por exemplo, posso adicionar os valores e depois adicionar a multiplicação, vamos ver se isso aqui funciona.
+
+[04:04] Primeiro os valores e depois a multiplicação, e vamos recompilar o MeuModulo.Tabuada e quando eu faço o cálculo funciona. Só que existem alguns casos, e eu vou deixar um Pra Saber Mais aqui com um exemplo, onde eu precisaria ter uma outra função para reverter essa minha lista. Isso seria um problema, eu acabaria perdendo performance dessa forma. Em alguns cenários utilizar a tail recursion pode trazer algumas dificuldades a mais para nós.
+
+[04:30] Só que talvez você não se lembra o motivo de nós utilizarmos tail recursion, porque, cá entre nós, aquela nossa primeira implementação é um pouco mais legível para mim. Vamos dar uma olhada aqui. Eu entendo melhor isso daqui do que eu entendo isso daqui, precisar acumular valores, obviamente eu podia adicionar os valores padrão aqui para facilitar um pouco a chamada.
+
+[04:51] Ainda assim esse tipo de leitura não é tão natural para mim. Para pessoas que estão mais habituados com linguagens funcionais isso é mais natural sim, isso é mais legível, mas como eu sou uma pessoa que trabalha mais com linguagens hiperativas, utilizando a orientação objeto, etc., isso aqui não é tão natural para mim. Só que para nós escrevermos isso precisa ter uma vantagem. No próximo vídeo, eu volto recapitulando a vantagem que nós temos a utilizar tail recursion.
+
+@@05
+Tail call optimization
+
+[00:00] Pessoal, bem-vindos de volta. Vamos entender rápido o motivo de utilizarmos tail recursion, sendo que em alguns casos pode até dificultar a leitura. O que acontece? Algumas linguagens, como é o caso da máquina virtual de Erlang, então por consequência a linguagem Elixir, possuem algo que é chamado de tail call optimization ou otimização de chamada de calda, a tradução não é tão interessante assim.
+[00:25] Mas o que isso quer dizer? Sempre que eu executo uma função. Deixa eu tentar desenhar aqui. Imagina que eu tenho a função principal, vamos chamar de main, essa função chama uma outra, uma funcao1, e essa funcao1 chama a funcao2. O que acontece na computação é que essas chamadas vão criando um bloco de memória, que é conhecido como stack frame, um bloco na minha stack e isso tudo aqui é a nossa pilha de execução, é a nossa stake.
+
+[00:55] Sempre que eu tenho uma função nova sendo chamada dentro de uma execução, eu tenho um novo bloco sendo separado e adicionado aqui nessa nossa stake. A stake tem o tamanho limitado, tanto é que se eu tiver muitas chamadas de função, isso acontece quando eu tenho recursão infinita, temos aquele famoso erro de stack overflow, ou seja, a sobrecarga da nossa *stake, da nossa pilha de execução.
+
+[01:18] Para evitar esse cenário em linguagens que precisam muito de recursão, como é o caso de Elixir, existe o conceito de tail call optimization. O que acontece? Quando eu tenho uma recursão, como é o caso aqui da nossa tabuada, de cauda, uma tail recursion, o que o Elixir consegue fazer?
+
+[01:37] No caso da máquina virtual, o Erlang. Ele analisa essa execução, essa função e ver a última coisa que essa função faz é chamar ela mesma, então ele consegue por baixo dos panos substituir essa chamada de função pelo bloco dela com o valor já alterado. O que ele vai fazer? Imagina que aqui o produto2 está sendo o número 3, ao invés de chamar a função de novo, ele vai avaliar todos esses detalhes, vai pegar esse valor aqui, 4, e adicionar esse bloco de código aqui embaixo.
+
+[02:11] O que ele vai fazer? Ele vai transformar a nossa recursão em algo muito parecido com o for, com um loop qualquer, e dessa forma nós vamos na nossa callstack somente uma chamada e no final, claro, nós vamos ter duas chamadas, porque nós temos essa outra definição aqui que não pode ser simplesmente inserida. No nosso caso vai ser uma chamada bem simples.
+
+[02:34] A nossa stake ao invés de ser isso aqui, várias chamadas para a função tabuada, vai ser somente isso daqui, ou seja, isso vai ser bastante rápido, vai ser bastante performático e vai ter a legibilidade de uma linguagem funcional sem utilizar instruções imperativas, como um loop. Dessa forma, nós mantemos a performance de uma linguagem imperativa com a declaratividade de uma linguagem funcional, de uma linguagem declarativa.
+
+[03:00] Essa é a ideia por trás da tail call optimization. Só que existe um mito de que isso é sempre melhor, de que a tail recursion sempre é o melhor caso, e, na verdade, isso não é. Eu vou deixar um link com um Para Saber Mais dando alguns exemplos, inclusive mostrando benchmark, de quando a body recursion, ou seja, esse cenário que nós fizemos, pode ser melhor. Quando nós estamos acumulando algum valor, a tail recursion vai ser mais interessante.
+
+[03:29] Só que se eu não preciso acumular nada e todo o meu processamento acontece realmente no meio da operação, então posso utilizar body recursion sem problema nenhum. De novo, eu vou deixar um Para Saber Mais com esse link explicando os detalhes e mostrando um benchmark, dessa forma você pode replicar o exemplo, testar na sua máquina para você entender melhor, mas a ideia é essa.
+
+[03:49] Se você precisa acumular valores, você pode e deve utilizar tail recursion. Só que em alguns cenários, principalmente com coisas pequenas, se eu não preciso acumular valores, utilizar a body recursion pode até trazer uma performance melhor, além de em alguns casos tornar a legibilidade um pouco mais fácil também. Essa é a ideia por trás da tail recursion. Entenda: se você for trabalhar com alguma linguagem funcional é importante conhecer esse tipo de técnica para que nosso código seja o mais otimizado possível.
+
+[04:20] Tendo entendido isso, tendo falado bastante sobre funções, tail recursion e recursão, vamos voltar a falar sobre tipos de dados, só que agora nós não vamos falar sobre nenhum tipo novo e sim sobre como manipular esses tipos que nós já conhecemos. Nós vamos falar um pouco de valores enumeráveis e como manipulá-los, só que isso tudo no próximo capítulo.
+
+@@06
+Para saber mais: Detalhes
+
+Vimos neste vídeo que ao acumular valores, tail recursion vai ser uma alternativa mais interessante, mas caso contrário, body recursion pode ser mais performático.
+Para entender melhor com detalhes esse tipo de problema, você pode conferir este artigo bastante interessante:
+
+Iteration, Recursion, and Tail-call Optimization in Elixir
+
+https://blog.appsignal.com/2019/03/19/elixir-alchemy-recursion.html
+
+@@07
+Faça como eu fiz
+
+Chegou a hora de você seguir todos os passos realizados por mim durante esta aula. Caso já tenha feito, excelente. Se ainda não, é importante que você execute o que foi visto nos vídeos para poder continuar com a próxima aula.
+
+Continue com os seus estudos, e se houver dúvidas, não hesite em recorrer ao nosso fórum!
+
+@@08
+O que aprendemos?
+
+Nesta aula, aprendemos:
+Implementamos o desafio da tabuada do treinamento anterior
+Mudamos a implementação de body recursion para tail recursion
+Entendemos o conceito de tail-call optimization
