@@ -2,6 +2,22 @@
 
 Curso de Elixir: Recursão, Enums e formas de execução
 
+```
+iex(1)> lista = [1, 2, 3]
+[1, 2, 3]
+iex(2)> Enum.map(lista, fn(x) -> x * 2 end)
+[2, 4, 6]
+iex(3)> Enum.map(lista, &(&1 *2))          
+[2, 4, 6]
+iex(4)> Enum.sum(lista)
+6
+iex(5)> require Integer
+Integer
+iex(6)> Enum.filter(lista, &(Integer.is_even(&1)))
+[2]
+iex(7)> 
+```
+
 @1-Mais sobre funções 
 
 @@01
@@ -344,3 +360,258 @@ Nesta aula, aprendemos:
 Implementamos o desafio da tabuada do treinamento anterior
 Mudamos a implementação de body recursion para tail recursion
 Entendemos o conceito de tail-call optimization
+
+#### 07/09/2023
+
+@03-Valores enumeráveis
+
+@@01
+Projeto da aula anterior
+
+Caso queira, você pode baixar aqui o projeto do curso no ponto em que paramos na aula anterior.
+
+https://github.com/alura-cursos/2310-elixir/archive/refs/tags/curso-2-aula-2.zip
+
+@@02
+Módulo Enum
+
+[00:00] Bem-vindos de volta a mais um capítulo desse treinamento onde estamos conhecendo um pouco mais sobre Elixir e agora já trabalhamos muitas coisas interessantes, vamos conhecer o que o Elixir chama de tipos enumeráveis.
+[00:14] Um tipo enumerável é uma espécie de conjunto de dados onde eu posso percorrer e aplicar alguma operação em cada um deles ou até reduzir esse conjunto de dados a um valor só.
+
+[00:27] Alguns tipos enumeráveis que já conhecemos são as listas e os mapas. Conseguimos pegar todos os valores de uma lista e aplicar alguma operação em cima deles, por exemplo.
+
+[00:37] Vamos fazer exatamente isso. Vou abrir o meu terminal interativo e criar uma lista, essa lista vai ter 1, 2 e 3. iex(2)> lista = (1, 2, 3). Eu posso fazer operações em cada um desses números, por exemplo, imagina que eu queira percorrer essa lista e para cada um desses números eu quero multiplicar por dois.
+
+[00:55] Eu posso utilizar o módulo Enum que fornece várias funções para trabalharmos com enumeráveis. Aqui em Enum eu tenho uma função map que espera algum enumerável e uma função. Essa função recebe por parâmetro um elemento que vai ser cada um deles, ele vai percorrer essa lista e vai passar por parâmetro para essa função.
+
+[01:18] Primeiro número 1, depois número 2 e assim em diante. E o que eu retornar aqui vai ser um novo item dessa nova lista que vai ser criada. Por exemplo: eu posso multiplicar isso por dois e com isso eu tenho uma nova lista com dois 2, 4, 6. iex(3)> Enum.map(lista, fn (x) -> x+ 2 end) [2, 4. 6]. Ou seja, cada um dos itens multiplicados por 2.
+
+[01:35] Claro que eu posso utilizar aquela sintaxe de captura de funções que aqui vamos ter o nosso primeiro parâmetro multiplicado por dois e isso continua funcionando. iex($)> Enum.map(lista, &(&1 * 2) [2, 4, 6]
+
+[01:46] Eu posso também, como eu disse, realizar operações que pegam um conjunto de dados e reduzem a um único valor. Eu posso fazer um Enum.reduce só que essa é uma função que vai demorar um pouquinho mais para explicar, para dar um exemplo mais simples é uma função sum de soma.
+
+[02:02] Se eu passar uma lista aqui eu simplesmente vou ter a soma de todos esses itens retornados. 1 + 2 = 3, 3 + 3 = 6, ele vai somar tudo o que estiver lá para nós. iex(5)> Enum.sum(lista).
+
+[02:14] Aquela função reduce pegaria cada um dos valores e iria acumulando, levaríamos um tempo a mais para implementá-la, para explicar para quem ainda não conhece. Como um pré requisito desses treinamentos de Elixir é você já conhece alguma outra linguagem de programação, recomendo demais que você pesquise sobre map, filter e reduce na sua linguagem.
+
+[02:36] Eu já falei de map, já falei de reduce e o filter como funciona? Eu posso pegar essa lista e ter somente os números que são pares, por exemplo, vou filtro nessa lista e vou retornar somente os valores que forem pares. iex(6)> Enum.filter(Lista, &(Integer.is_even(&)))
+
+[03:00] Não é essa definição eu preciso fazer o require Interger, vamos lá. iex(6)> require Interger; Fiz o require e agora quando eu executo eu tenho somente o meu número dois.
+
+[03:09] "Vinicius, por que você precisou do require?" Porque o nosso is even é uma macro, já falamos sobre isso no capítulo de módulo do treinamento anterior. Em alguns casos eu preciso fazer, preciso de forma explícita requerer o módulo que estou utilizando.
+
+[03:24] Essa é a ideia por trás dos enumeráveis, é um conjunto de dados que eu posso percorrer e aplicar operações. Se dermos uma olhada na documentação eu tenho muitas funções que eu posso aplicar, tanto em listas quanto em mapas
+
+[03:38] Por exemplo, aqui estou fazendo mapeamento de um mapa em si, ele trabalha tanto com a chave quanto com o valor, podemos fazer isso também.
+
+[03:46] Vamos dar uma olhada bem rápida só em quantas funções temos, são muitas funções. Eu consigo verificar se todos os elementos são alguma coisa, são, por exemplo, conseguem ser lidados como verdadeiro, não são falso e nem nulo.
+
+[04:04] Eu consigo fazer alguma verificação em todos esses elementos através do all, consigo verificar se algum desses elementos bate com alguma verificação, consigo pegar um elemento na posição tal, consigo pegar pedaços desses enumeráveis, consigo unir enumeráveis, contar. Consigo fazer muita coisa.
+
+[04:22] Repare que existem várias funções nesse nosso módulo de Enum, vale a pena dar uma olhada na documentação com calma e entender tudo o que isso aqui faz.
+
+[04:30] Agora eu vou voltar lá para o início para vermos que existem alguns dados, podemos ter vários tipos que sejam enumeráveis. Só que por padrão já temos três que são os mais comuns: listas, mapas e intervalos.
+
+[04:48] No próximo vídeo vamos ver bem rápido o que são esses tal de intervalos, como eu crio um intervalo e vamos praticar o uso de intervalos junto com as funções de Enum.
+
+@@03
+Enumeráveis
+
+Vimos neste vídeo algumas funções do módulo Enum.
+O que Elixir chama de valores enumeráveis (Enumerables)?
+
+Conjuntos de dados que podem ser percorridos e manipulados em conjunto.
+ 
+Alternativa correta! Mapas e listas são exemplos de enumeráveis. Embora tuplas também pareçam ser, são estruturas de tamanho fixo e acesso direto, então as funções do módulo Enum não funcionam em tuplas.
+Alternativa correta
+Apenas mapas e listas.
+ 
+Alternativa correta
+Qualquer tipo de dados que possamos contar o número de elementos dentro dele.
+
+@@04
+Ranges
+
+[00:00] Bem-vindos de volta. Vamos entender o que é um Range ou intervalo. É bem simples na verdade, é um conjunto, é um intervalo propriamente dito de inteiros. Eu preciso ter um início, um fim e um passo, ou seja, o valor que vai ser incrementado ou decrementado.
+[00:19] Eu sei que falando assim pode ficar confuso, mas vamos lá. Imagine que eu queira pegar o intervalo de 1 até 10, eu posso fazer através da anotação: iex(2)> 1..10, isso aqui vai me dar o intervalo do número 1 até o número 10. Inclusive, ou seja, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. Não vai ser de 2 a 9, por exemplo, de 1 a 9, de 2 a 10, vai ser inclusive, com os dois itens.
+
+[00:45] Se eu quiser pegar a lista que esse intervalo gera para nós posso chamar o: Enum.to.list(1..10) e esse intervalo, isso vai nos retornar a lista. Eu consigo ter intervalos também com passos personalizados, vamos dizer assim, eu posso utilizar anotação barra barra, por exemplo, 2, para ir pulando de 2 em 2. iex(4)> Enum.to_list(1..10//2). Eu tenho lá de 1 a 10 só que pulando de 2 em 2 e isso acaba tirando o 10. [1, 3, 5, 7, 9]
+
+[01:12] Dessa forma eu consigo criar intervalos, transformá-los em listas, consigo mapear intervalos e etc. Inclusive, isso deixa aqui uma forma mais simples de implementarmos a tabuada sem precisar nós mesmos criar aquela recursão, saber sobre tail recursion e etc.
+
+[01:32] Vamos tentar criar aqui uma tabuada. Eu vou fazer o mapeamento de 1 até 10 porque eu vou fazer a tabuada de 1 a 10, executando essa função aqui, eu vou multiplicar esse meu parâmetro pelo multiplicador que eu quero. Por exemplo, se eu quero a tabuada de 5 eu vou fazer isso aqui multiplicado por 5. iex(5)> Enum.map(1..10, &(&1 * 5)) e tenho lá a tabuada de 5. [5, 10, 15, 20, 25, 30, 35, 40, 45, 50].
+
+[01:54] Se eu quero a tabuada de 3, tenho aqui a tabuada de 3. iex(6)> Enum.map(1..10, &(&1 * 3)) [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]. Repare que conhecendo um pouquinho a biblioteca do próprio Elixir, eu deixo de precisar escrever algumas coisas, mas como estava escrito lá naquele artigo que eu deixei no Para Saber Mais no final do módulo de recursão, em alguns cenários é preferível que escrevemos as nossas próprias funções do que utilizar o que temos no Enum para ganharmos um pouco de performance.
+
+[02:18] Não é esse o caso aqui da tabuada, aqui temos realmente um intervalo sendo criado e desse intervalo estamos mapeando uma vez só, é uma operação bastante performática, não precisaríamos da nossa própria recursão.
+
+[02:30] Eu consigo realizar várias operações que eu realizaria em cima de um mapa ou em cima de uma lista em intervalos. Sendo assim, eu posso criar um intervalo gigante sem precisar ter esses valores. De 1 até esse número aqui que eu nem sei qual é, eu consigo criar esse intervalo e se eu tenho que pegar a lista disso eu vou ter esse valor enorme.
+
+[02:52] Repara que aqui o nosso terminal interativo nem mostra tudo porque íamos ocupar muito espaço. Isso é muito interessante para sabermos como gerar valores sem precisar ter todos esses valores à mão.
+
+[03:04] Uma coisa que não tem a ver com o enumeráveis, só que como estou olhando esse número aqui eu acho válido citar, tem um sintaxe interessante para representarmos números que eu posso utilizar underline em qualquer lugar de um número, assim eu consigo saber, eu consigo visualmente saber melhor que número é esse.
+
+[03:20] Só com aquele monte de zeros eu nem sabia que número era, agora eu sei que isso é 1 milhão. Eu tenho aqui a casa de centenas, a casa de milhares e a casa de 1 milhão. Isso é só um detalhe de sintaxe sobre inteiros.
+
+[03:32] Imagine um cenário onde eu precise aplicar várias operações em cima de um enumerável, de uma lista, de um mapa ou de um intervalo. Se eu tiver várias operações acontecendo eu vou precisar chamar uma função, dentro dessa chamar outra e etc. Isso torna a legibilidade um pouco ruim.
+
+[03:49] Vamos conhecer um novo operador para lidar principalmente com enumeráveis, mas que na verdade pode ser utilizado em qualquer caso. Só que isso vamos ver no próximo vídeo.
+
+@@05
+Pipe operator
+
+[00:00] Bem-vindos de volta. Como eu comentei, existem cenários onde eu vou precisar aplicar várias funções, várias transformações talvez para no final pegar um resultado. Vamos ver um exemplo desse cenário para depois vermos como podemos melhorar o código.
+[00:15] Imagine que eu queira pegar na nossa tabuada, vou mapear de 1 a 10 com essa função e multiplica por 5, por exemplo, peguei a tabuada de 5. iex(22)> Enum.map(1..10, &(&1 * 5)) [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+
+[00:24] Eu quero pegar essa tabuada, filtrar para pegar somente os números pares e somar esse resultado filtrado. Vamos lá, eu vou pegar essa tabuada, eu vou precisar filtrar isso, Enum.filter, esse resultado aqui Enum.map(1..10, &(&1 * 5) eu vou filtrar para garantir que é par, &Integer.is_even(&1).
+
+[00:47] Terminei, eu acho que está no lugar certo e vamos ver se o resultado é o esperado por enquanto, só peguei os números pares. Agora eu quero eu quero fazer a soma disso aqui tudo, já vou adicionar parênteses aqui, lá no início eu vou adicionar o Enum.sum e ok, tenho o meu resultado. iex(24)> Enum.sum(Enum.filter(Enum.map(1..10, &(&1 * 5)), &Integer.is_even(&1))) 150
+
+[01:04] Repare que consigo atingir o resultado esperado, mas eu tenho três chamadas de funções encadeadas aqui, eu não sei onde começa, é difícil de ler. Vamos tentar escrever isso de uma forma um pouco mais natural.
+
+[01:18] O início de tudo é esse valor aqui, esse valor inicia toda a minha execução. Eu quero pegar esse valor e passá-lo para a função Enum.map que vai mapear usando essa função. Depois desse resultado aqui eu quero passar para a minha função Enum.filter que vai utilizar essa outra função aqui para filtrar os números pares.
+
+[01:39] Esse resultado todo eu quero passar para a minha função de Enum.sum. Para fazer isso vamos pegar de dentro para fora e ir escrevendo, eu vou pegar o meu intervalo e esse intervalo eu vou passar para a próxima função aqui, eu vou passá-lo como primeiro parâmetro da próxima função, vou utilizar esse operador aqui o, o pipe e o sinal de maior. iex(25)> 1...10 |>
+
+[02:05] Agora eu posso passar esse valor para o Enum.map, o primeiro parâmetro vai ser o que temos antes desse operador, eu posso passar aqui o nosso segundo parâmetro que é a função. Enum.map(&(&1 * 5) e o resultado desse mapeamento eu quero também passar por parâmetro para a próxima função que vai ser o filtro.
+
+[02:27] Dessa nossa tabuada eu vou filtrar somente o que é um número par, ...(25)> Enum.filter(&Integer.is_even(&1). Vamos recapitular o que fizemos até aqui, peguei esse intervalo, eu passo esse intervalo como primeiro parâmetro da próxima função depois desse operador, a função depois operador é o Enum.map e repare que ela já tem um parâmetro aqui, o valor antes desse operador vai ser passado aqui, antes desse outro valor que estou passando.
+
+[02:56] A mesma coisa para a próxima função, ou seja, o resultado desse map vai ser passado como primeiro parâmetro de filter e o resultado desse filter vai ser passado como primeiro parâmetro da minha função sum. Como eu não preciso de um segundo ou terceiro parâmetro eu não preciso informar mais nada, quando eu executo eu tenho o mesmo resultado.
+
+[03:16] Só que a leitura é um pouco melhor, eu pego o meu intervalo, mapeio ele multiplicando tudo por 5, filtro somente os números pares e somo tudo. Isso é lido de uma forma mais natural.
+
+[03:28] Aqui utilizamos o mesmo conceito que os comandos UNIX utilizam, o conceito de pipe onde o resultado de um comando pode ser passado para a entrada de outro comando. É exatamente esse o nome desse operador aqui, é o operador de pipe ou pipe operator.
+
+[03:45] Pegamos algum valor e passa como primeiro parâmetro da próxima função e eu posso ir encadeando essas chamadas de pipe operators. Aqui quando eu utilizo o pipe operator, de novo, sem o valor antes do operador vai ser passado como primeiro parâmetro da função depois do operador.
+
+[04:06] Temos alguns detalhes com os quais preocupar-se. Primeiro: eu não preciso na hora de chamar funções em Elixir utilizar parênteses, será que aqui os parênteses também são opcionais? E se eu precisar passar esse valor que estou recebendo de antes do operador, como segundo ou terceiro parâmetro de uma função?
+
+[04:24] Ao invés de ficarmos brincando um pouco mais aqui, vamos dar uma olhada na documentação para aprendermos também a consultar a documentação, além do guia que já estávamos olhando.
+
+[04:34] Vou abrir aqui a documentação e eu já abri no pipe operator na sessão de Pitfalls, ou seja, detalhes para nos atentarmos. Tem dois detalhes que temos que prestar atenção, um é a precedência dos operadores. Se eu tentar executar isso daqui, esperamos que eu vá chamar a função graphemes que conta o número de grafemas de uma string. Vou executá-la para vocês verem o que vai acontecer aqui.
+
+[05:01] Ele vai pegar os grafemas, ou seja, vai transformar isso em uma lista com os grafemas. Eu quero pegar essa lista e reverter, eu quero fazer o reverse disso. Só que quando eu escrever dessa forma isso vai ser interpretado assim, vou acabar passando esse string para a função reverse de Enum. Só que uma string não é um Enum, por isso vamos ter um erro.
+
+[05:21] Repare que se eu executar isso daqui temos um erro. É interessante, é importante e é recomendado que sempre utilizemos os parênteses. No nosso caso seria algo assim: iex(27)> String.graphemes("Hello") |> Enum.reverse() Agora sim, eu reverti esse meu dado.
+
+[05:41] Como a documentação diz, é mais interessante ainda já começar pelo dado e depois passarmos para as funções que precisamos. iex(28)> "Hello" |> String.graphemes() |> Enum.reverse(). Assim temos uma leitura ainda mais natural.
+
+[06:03] A partir da string Hello chama essa função que me retorna os grafemas e desses grafemas reverte. É isso que a documentação sugere. Além de sempre utilizar os parênteses, comece pelo dado que você quer manipular.
+
+[06:18] Um segundo detalhe é: se eu precisar utilizar uma função anônima e passar por parâmetro, não no primeiro parâmetro passar o valor que estou fazendo o pipe não pelo primeiro parâmetro, mas sim para algum próximo parâmetro. Eu posso criar uma função anônima, utilizando aquela sintaxe de capture function, ou seja, se capturar a função, eu posso criar uma nova função que chama essa função já existente passando para o segundo parâmetro o primeiro parâmetro que ela recebe.
+
+[06:49] Isso daqui, vou lá no nosso terminal de novo, isso daqui é a mesma coisa que fazer isso daqui: iex(32)> sume_fun = fun (x) -> Regex.replace(~r/l/, "L") end. São exatamente a mesma coisa.
+
+[07:18] Repare que eu estou criando uma nova função que recebe somente um parâmetro e esse parâmetro ela passa como segundo parâmetro da função que queremos utilizar.
+
+[07:28] Para facilitar um pouco a escrita, principalmente em pipe operator, temos a função then. Essa função recebe o valor que você quer ter a função sendo executada como primeiro parâmetro e a função que você efetivamente quer utilizar esse parâmetro.
+
+[07:44] Basicamente a função then vai pegar essa some_fun e vai entregar-te a chamada de uma função passando algum parâmetro aqui.
+
+[07:58] Utilizando o then, antes eu preciso importá-lo. O primeiro parâmetro é o valor que vai ser passado lá por padrão, esse Teste vai ser passado por padrão para a nossa some_fun. No nosso caso essa iex não bate, não vai substituir nada, mas basicamente eu tenho uma função que pega o primeiro parâmetro e passa como primeiro parâmetro de alguma outra função.
+
+[08:32] Se eu utilizo ela nesse cenário não faz sentido nenhum, mas se eu utilizo ela em um pipe operator, como ele diz aqui, isso faz todo sentido para eu ter uma legibilidade um pouco maior.
+
+[08:42] Ao invés de ter isso daqui tudo adicionado direto na função, eu posso passar isso para um then e ter a função como um todo sendo definido ali.
+
+[08:53] Espero não ter complicado mais do que simplificado, mas deixa eu tentar resumir: se eu preciso pegar o valor que veio do nosso pipe operator e passar como segundo ou terceiro parâmetro de alguma função, eu posso criar uma função anônima e utilizar essa função anônima aqui.
+
+[09:11] Só que o pipe operator precisa sempre de uma chamada, de uma execução de função. Quando eu tenho uma função anônima eu preciso ter os pontos e os parênteses, lembra desse detalhe? Para eu não precisar fazer isso, para eu não precisar criar uma variável e dessa variável chamar esse operador eu posso colocar toda essa definição da função dentro do nosso then.
+
+[09:36] Porque ele vai pegar o primeiro parâmetro e direto passar para essa função aqui, isso já é uma execução da função.
+
+[09:42] O pipe operator, recapitulando sem toda essa complicação dos detalhes da documentação, podemos pegar um valor e passar como primeiro parâmetro para uma função logo depois desse operador. O resultado podemos passar como primeiro parâmetro da próxima função e assim em diante.
+
+[09:58] Vamos encadeando chamadas do nosso pipe operator e dessa forma vamos realmente encadeando chamadas em cima de um dado. A recomendação é que esse dado seja sempre a primeira coisa que vamos utilizar.
+
+[10:10] Com isso temos a definição pipe operator, mas eu quero chamar atenção para aquele cenário que eu exemplifiquei há um tempo de um número muito grande, imagine o número de um a um milhão, esse intervalo na verdade. Imagine que eu precise mapear, filtrar, somar, fazer o que eu quiser nesse intervalo grande aqui.
+
+[10:30] Se eu tenho várias operações sendo executadas em vários momentos, em vários lugares diferentes vou percorrer um milhão de números. Isso, obviamente, é custoso, isso vai levar tempo, isso vai degradar a nossa performance. Como podemos otimizar esse cenário? Talvez esperar um pouco mais, deixar para executar tudo de uma vez só. Vamos entender um pouco melhor no próximo vídeo.
+
+@@06
+Possibilidades
+
+Vimos neste vídeo que o Pipe Operator pega o valor à sua esquerda e passa como primeiro parâmetro da chamada de função à sua direita.
+Que técnica podemos usar se quisermos passar o valor para um parâmetro que não seja o primeiro na chamada de função?
+
+Funções anônimas.
+ 
+Alternativa correta! Podemos criar uma função anônima que recebe o valor em questão e o passa para outra na ordem correta. Podemos até usar a função then para tornar essa escrita um pouco mais natural.
+Alternativa correta
+Guardas de cláusulas.
+ 
+Alternativa correta
+Pattern matching.
+
+@@07
+Para saber mais: Documentação
+
+Se você quiser acessar a documentação oficial do Pipe Operator, pode conferir aqui: Elixir Kernel.
+
+https://hexdocs.pm/elixir/Kernel.html#%7C%3E/2
+
+@@08
+Streams
+
+[00:00] Bem-vindos de volta. Vamos falar no cenário onde eu tenho todas as operações que eu fiz com a nossa tabuada, eu vou fazer mapeamento para multiplicar e gerar a tabuada em si, vou fazer um filtro e depois eu somo. Só que imagina isso para um intervalo muito grande, por exemplo, aquele de 1 a 1 milhão.
+[00:23] Nesse cenário eu faria o mapeamento, aquela multiplicação por cada número, percorreria toda a lista, percorreria todo o intervalo. Depois eu percorreria todo o intervalo de novo para filtrar, para verificar quais desses números são inteiros. Depois eu percorreria todo esse intervalo de novo para somar cada um dos elementos.
+
+[00:43] Eu precisaria percorrer três vezes esse intervalo gigante, isso não é interessante, isso não é performático. Só que podemos meio que "adiar" a execução disso tudo para o final. Para fazer isso, ao invés de utilizar as funções do módulo Enum, podemos utilizar as funções do módulo Stream.
+
+[01:04] Esse módulo nos traz um novo tipo de dados, que é um string. Vamos ver o que eu quero dizer com isso, imagine esse cenário que eu utilizei aqui em cima e esse cenário eu vou passar ao invés de para Enum.map eu vou passar para Stream.map e aqui eu vou ter aquela nossa multiplicação, o primeiro número multiplicado por 5. Stream.map(%(&1 * 5)).
+
+[01:24] Repare que isso aqui não nos retorna um intervalo, não retorna uma lista e nem nada do tipo, isso retorna um stream. Esse stream tem o conjunto de operações que serão executadas dentro do nosso enumerável, que nesse caso é um intervalo.
+
+[01:40] Podemos compor esses streams, ou seja, eu posso passar esse stream para um outro stream e no final quando eu passar para alguma função do módulo Enum, aí sim todas as operações serão realmente executadas.
+
+[01:56] Vamos continuar aqui, eu tenho esse intervalo passado para o nosso map, aqui vamos passar para um stream.filter que vai filtrar somente os pares, is_even e aqui no final podemos passar para o nosso Enum.sum e sim, vai executar todas as operações. Stream.filter(&Integer.is_even(&1)) |> Enum.sum().
+
+[02:18] Ele leva um tempo mais porque estou executando em cima de 1 milhão e eu até pensei que dei um número errado, mas eu lembrei que eu não estou mais fazendo somente de 1 a 10 e sim de 1 a 1 milhão.
+
+[02:30] Vamos tentar realizar todas as operações novamente só que utilizando Enum ao invés de stream. Se eu utilizo aqui Enum.map nesse momento essa operação vai ser executada, depois quando eu faço filter novamente todo esse número vai ser percorrido, todo esse intervalo. E no final com Enum.sum ele percorre uma última vez. Essa operação vai executada três vezes, mas temos o mesmo resultado.
+
+[02:55] Assim economizamos memória e tempo de processamento ao utilizar o stream, só deixamos para executar tudo no final, não executamos uma parte e mandamos, executamos novamente e mandamos. Podemos percorrer uma vez só todo esse conjunto de dados aqui.
+
+[03:11] Os streams são muito uteis quando temos conjuntos grandes ou até possivelmente infinitos. Porque se olharmos a documentação temos a possibilidade de criar enumeráveis infinitos, por exemplo, com ciclos. Vou criar esse stream aqui e nós temos ciclos, se eu tentar fazer um Enum.map desse ciclo aqui, desse stream e fazer algo como multiplicar esse dado por dois vamos ver o que acontece, vamos ficar executando infinitamente, eu vou ter que interromper aqui senão até gravação vai parar.
+
+[03:46] Esse ciclo é infinito, eu posso ir pegando intervalos, eu posso a partir de um Enum pegar 10 desses itens desse ciclo, eu não lembro qual é a ordem dos parâmetros aqui, primeiro o ciclo e depois quantos itens desse ciclo eu quero pegar. Repare que ele vai se repetindo, podemos ter um conjunto infinito de dados, é perfeitamente possível.
+
+[04:09] Se utilizarmos streams, garantimos que não vai ficar percorrendo um número infinito de dados, conseguimos adiar esse processamento e depois quando chamamos alguma função do módulo Enum aí sim todas as operações serão executadas.
+
+[04:24] Isso é o que eu queria trazer para nós sobre os Enuns, sobre os streams, sobre pipe operator, sobre tudo isso que gira em torno de operações em cima de intervalo, enfim. Falamos bastante sobre enumeráveis, agora vamos sair um pouco desses novos tipos de dados e novas operações e vamos recapitular algo que já vimos um pouco só que não vimos de forma isolada, só vimos para dar alguns outros exemplos, que é como manipular arquivos.
+
+[04:49] Vamos aprender a escrever, a ler em arquivos e até a lidar com caminhos. Como sabemos se precisa ou não adicionar uma barra ou um contra barra quando estamos separando diretórios. Vamos bater esse papo bem rápido no próximo capítulo.
+
+@@09
+Lazy Evaluation
+
+Vimos neste vídeo que através do módulo Stream nós conseguimos ter múltiplas manipulações de algum enumerável sendo feitas de uma única vez, no final do conjunto de operações.
+Como o módulo Stream faz isso?
+
+Criando um simples array de funções a ser executado no final.
+ 
+Alternativa errada! Assim esse array de funções seria executado no final, mas os conjuntos de dados seriam percorridos várias vezes ainda assim.
+Alternativa correta
+O módulo Stream não aplica efetivamente nenhuma das operações.
+ 
+Alternativa correta! O módulo Stream apenas armazena as operações necessárias para serem executadas. No final, quando o módulo Enum receber um stream em alguma de suas funções, vai ser como unir essas operações e executar de uma vez só.
+Alternativa correta
+Na verdade o módulo Stream não tem esse propósito.
+
+@@10
+Faça como eu fiz
+
+Chegou a hora de você seguir todos os passos realizados por mim durante esta aula. Caso já tenha feito, excelente. Se ainda não, é importante que você execute o que foi visto nos vídeos para poder continuar com a próxima aula.
+
+Continue com os seus estudos, e se houver dúvidas, não hesite em recorrer ao nosso fórum!
+
+@@11
+O que aprendemos?
+
+Nesta aula, aprendemos:
+Entendemos o que são valores enumeráveis
+Conhecemos o módulo Enum
+Aprendemos sobre intervalos
+Usamos o Pipe Operator
+Conhecemos os streams para Lazy Evaluation de enumeráveis
