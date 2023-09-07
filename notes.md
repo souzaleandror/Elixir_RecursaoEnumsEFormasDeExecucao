@@ -615,3 +615,147 @@ Conhecemos o módulo Enum
 Aprendemos sobre intervalos
 Usamos o Pipe Operator
 Conhecemos os streams para Lazy Evaluation de enumeráveis
+
+####
+
+@04-Lidando com arquivos
+
+@@01
+File.read
+
+[00:00] Pessoal, bem-vindos de volta a mais um capítulo desse treinamento, onde estamos conhecendo um pouco mais sobre Elixir. Agora vamos aprender a lidar com arquivos. Para isso, eu vou criar uma nova pasta aqui só para não termos arquivos soltos e as coisas ficarem confusas. Só vou criar uma pasta chamada "arquivos".
+[00:18] Vou criar aqui um novo módulo que vai lidar com arquivos. Vou chamar de "arquivos.exs", sem grilo, sem me preocupar muito em como nomear isso apropriadamente. Vou criar um novo módulo defmodule MeuModulo.Arquivos do. O que eu vou fazer? Primeiro, eu quero ler arquivos, então vou criar uma função que ler arquivos, def ler(arquivo) do, que vai receber aqui o caminho desse arquivo.
+
+[00:42] Vamos lá. Primeiro, já vimos um pouco de como funciona a leitura, então sabemos que quando eu utilizo File.read(), eu vou ter aqui um retorno uma tupla, onde o primeiro elemento é ok em caso de sucesso ou error em caso de erro.
+
+[01:00] Vamos conhecer alguns dos erros possíveis. Eu vou pegar aqui somente em caso de erro, o nosso erro em questão. Só isso que vou fazer. {:error, erro} = File.read(), e essa variável erro é o que eu vou retornar. {:error, erro} = File.read() erro. Eu só quero ver o nosso erro, só isso. Só que, claro, aqui eu preciso ler do arquivo em questão. {:error, erro} = File.read(arquivo) erro.
+
+[01:18] Eu só criei um módulo para trabalharmos com ele. Certo? Vamos lá. Vou executar aqui dentro de "arquivos", então vou entrar na pasta "arquivos" e executar o meu módulo arquivos. Aqui eu posso chamar MeuModulo.Arquivos.ler("não_existe"), um arquivo que não existe. O que vamos ter aqui? Vamos ter um retorno :enoent, de "no entry".
+
+[01:41] Aqui é um arquivo que simplesmente não existe. Agora deixa eu sair daqui e criar um arquivo. Esse comando touch arquivo simplesmente cria um arquivo, só que o que eu vou fazer? Deixa eu limpar o meu terminal e executar esse comando. Aqui no meu arquivo, através do meu usuário "vinicius.dias", eu posso ler e posso escrever.
+
+[02:03] O que eu vou fazer? Eu vou remover a permissão de leitura, chmod-r, de leitura. Eu vou remover a permissão de leitura do meu arquivo. Eu preciso digitar a minha senha, e vamos ver se isso funcionou. Eu não posso mais ler. Esse arquivo não é mais possível de ser lido.
+
+[02:24] Vamos de novo executar lá o nosso módulo e tentar executar MeuModulo.Arquivos.ler("arquivo"), meu arquivo que existe, então não vamos ter aquele mesmo erro, só que eu não tenho permissão. Repara que agora eu tenho um erro de acesso.
+
+[02:39] Eu posso tratar os cenários de erro de várias formas diferentes, como eu preferir. Só que agora eu vou pegar o meu cenário de sucesso, eu vou realmente criar um arquivo e eu vou permitir a leitura dele. Deixa eu fechar aqui. Eu vou permitir a leitura daquele meu arquivo, chmod +r, ou seja, vou permitir a leitura em arquivo, e vou adicionar algum conteúdo aqui nele. "Adicionando conteúdo em mais de uma linha do meu arquivo". Simples assim.
+
+[03:10] Agora se eu tentar executar esse meu código, o que você espera que aconteça? Vou executar aqui, tentar executar MeuModulo.Arquivos.ler("arquivo"). Quando eu tentar executar, erro de match, por quê? Eu só estou pegando o cenário de erro e isso entra naquele nosso caso onde falamos de poder ler cenários com erro ou não ou só tratar os cenários possuem erro ou não, ou só partir do princípio que vai dar certo, porque eu sei que o arquivo existe ou não.
+
+[03:44] Eu vou utilizar essa variante aqui da função, essa nova função, essa função diferente, que permite que eu só consiga ler se o arquivo existir, se ele for acessível, se eu estiver espaço em memória suficiente. Em caso de erro, se esse arquivo não existir ou não for acessível, ele vai lançar logo uma exceção para nós.
+
+[04:04] Eu posso pegar direto aqui o nosso conteúdo ou, ao invés de pegar o conteúdo, eu já vou retorná-lo. De novo, eu acabei gaguejando um pouco, se eu não coloco esse ponto de exclamação, como já vimos, o retorno é uma tupla, onde o primeiro elemento indica se foi com sucesso ou com erro.
+
+[04:21] Já se eu adiciono o ponto de exclamação, o retorno é sempre uma string. E caso o arquivo não exista ou caso eu não tenha memória, caso o arquivo não tenha permissão para leitura, ele vai retornar um erro, ele vai lançar um erro, então não vamos ter um retorno aqui.
+
+[04:36] Deixa eu recompilar esse meu módulo, MeuModulo.Arquivos, recompilado. Se eu tento ler esse arquivo, "adicionando conteúdo em mais de uma linha no meu arquivo". De novo, já falamos sobre isso, mas eu recapitular. Aqui, ele está mostrando o retorno, então por isso que ele tem essas quebras de linha sem serem quebras de linha. Se eu exibir isso ou tentar lidar com essa string de alguma forma, por exemplo, se eu tentar exibir esse dado com o IO.puts, aí ele vai adicionar as quebras de linha corretamente.
+
+[05:11] Por quê? O IO.puts sabe lidar com string, sabe quando precisa quebrar linha e quando não precisa. Já o simples retorno não precisa quebrar linha para nós, ele mostra aqui: "existe esse carácter", se você vai utilizar ele como quebra de linha ou não é por seu critério. Aqui, já começamos a lidar com arquivos para conseguirmos ler e ler de formas distintas.
+
+[05:33] Para esse vídeo não ficar muito grande, no próximo vídeo vamos mostrar uma mensagem de erro um pouco mais amigável em caso de erro. Se não conseguirmos ler por não existir o arquivo, por não ter acesso a ele, por não ter memória e etc. No próximo vídeo, eu volto mostrando todos os erros possíveis e como podemos tratá-los.
+
+@@02
+Diferenças
+
+Vimos neste vídeo na prática a diferença entre a função File.read e File.read!.
+Qual a diferença entre essas 2 funções?
+
+@@A função File.read retorna uma tupla. A função File.read! retorna o conteúdo do arquivo.
+ 
+Alternativa correta! Em caso de sucesso, a função File.read! retorna diretamente o conteúdo do arquivo e não uma tupla.
+Alternativa correta
+A função File.read! retorna uma tupla. A função File.read retorna o conteúdo do arquivo.
+ 
+Alternativa correta
+A função File.read! lança um erro em caso de falha ao ler o arquivo.
+ 
+Alternativa correta! A função File.read apenas retornaria o erro em questão como segundo elemento da tupla retornada.
+
+@@03
+Lendo com erro
+
+[00:00] Pessoal, bem-vindos de volta. Vamos ver como poderíamos lidar com esses cenários de erro só para praticarmos um pouco. Vamos lá. Eu posso pegar o retorno ao invés de lançar uma exceção para exibir uma mensagem mais amigável. Caso o retorno dessa leitura aqui seja "ok", então eu posso utilizar o pattern matching aqui, como já praticamos. Eu vou ter a variável conteúdo. case File.read(arquivo) do {:ok, conteúdo}.
+[00:23] Eu posso ou exibir essa variável ou simplesmente retornar ela diretamente aqui, retornar esse conteúdo. case File.read(arquivo) do {:ok, conteúdo} -> IO.puts(conteúdo). Eu vou colocar para exibi-la ao invés de retornar e retornar um "ok", porque vamos ter as quebras de linhas bonitas. Caso tenhamos um erro, eu posso ter aqui qual é o erro que aconteceu e exibir, `{:error, erro} -> "Aconteceu algum erro". Aqui podemos lidar com esse erro de alguma forma.
+
+[00:54] Vamos abrir o nosso terminal, deixa eu recompilar o MeuModulo.Arquivos e, claro, ele vai mostrar um aviso de que a variável erro não está sendo utilizada, então deixa eu por enquanto trocar ela por um underline, vamos utiliza-la daqui a pouco, mas por enquanto não. `{:error, _} -> "Aconteceu algum erro".
+
+[01:13] Agora, eu posso limpar aqui e tentar exibir. MeuModulo.Arquivos.ler("teste"), esse arquivo "teste" não existe. Aconteceu algum erro. Se eu tentar ler "arquivo", vamos ter sucesso.
+
+[01:28] É importante citar que eu executei o meu terminal interativo aqui dentro da pasta "arquivos. Se eu executasse esse terminal interativo em algum outro lugar, eu precisaria informar o caminho desse arquivo. Como eu estou na mesma pasta eu não preciso informar o caminho porque ele vai tentar ler o arquivo na mesma pasta, na pasta atual da execução.
+
+[01:49] Se eu quisesse colocar mensagens específicas para erros diferentes? Primeiro precisamos conhecer quais são os erros. Dando uma olhada na documentação da função read(), temos aqui todos os erros possíveis. O de :enoent, que é o "no entry", o arquivo não existe, :eacces, que é que já tivemos também com permissão, :eisdir, ou seja, é um diretório, não é um arquivo.
+
+[02:13] Se isso não é um diretório, ou seja, passamos vários componentes, um caminho completo, vamos dizer assim, se em algum desses caminhos, o que colocamos não é um diretório válido podemos ter esse retorno aqui. Em algumas plataformas, ele já retorna esse mesmo erro, de que o arquivo não existe. É um erro de que não existe memória o suficiente para lermos o conteúdo desse arquivo.
+
+[02:35] Como é fácil simularmos esses erros aqui, vamos criar mensagens para eles. Na verdade, só esses dois para não perdermos muito tempo criando várias mensagens. Vamos lá. Eu vou ter o nosso erro e eu tenho duas saídas aqui: eu posso ou fazer um outro case e aqui no meu eu verificar se esse meu erro vai ser {:error, erro} -> case erro do :enoent -> "Arquivo inexistente" :eaces -> "Arquivo sem permissão de leitura”.
+
+[03:20] Se der algum outro erro vamos exibir -> "Erro desconhecido". Vamos nessa. O que vou fazer? Vou primeiro gerar o erro de arquivo inexistente. Deixa eu recompilar meu módulo, deixa eu limpar aqui e tentar ler um arquivo que não existe, MeuModulo.Arquivos.ler("arquivoa"), esse arquivo não existe. Perfeito. Agora deixa eu abrir um outro terminal aqui, tirar a minha permissão, sudo chmod –r arquivos.arquivo. Deixa eu digitar minha senha.
+
+[03:56] E agora eu vou tentar ler esse arquivo, MeuModulo.Arquivos.ler("arquivo"), eu vou ter arquivo sem permissão de leitura. Consegui fazer essa verificação. Agora, como eu disse, posso fazer dessa forma ou posso fazer o tratamento de outra forma. Eu vou verificar se é um erro, {:error, :enoent}, então já retorno direto "Arquivo inexistente".
+
+[04:23] Deixa eu apagar isso daqui. Se for um erro e for um erro de acesso, eu exibo aqui "Arquivo sem permissão de leitura". Agora qualquer outra coisa que vier, eu coloco que é um erro desconhecido. {:error, :enoent} -> "Arquivo inexistente" {:error, :eacces} -> "Arquivo sem permissão de leitura. De novo estamos utilizando pattern matching para não precisar ter cases aninhados e etc.
+
+[04:40] De novo, mais uma vez, outra vez, temos aqui o poder do pattern matching sendo exibido. Vamos lá. Deixa eu recompilar o meu módulo. Vamos de novo tentar ler esse arquivo, sem permissão de leitura. Se eu tento ler um arquivo inexistente, "Arquivo inexistente". Deixa eu me dar a permissão de leitura de novo. Vou adicionar o mais aqui, sudo chmod +r arquivos/arquivo. Se eu tentar ler esse arquivo agora, estará lá o nosso conteúdo sendo exibido.
+
+[05:11] Entendemos os retornos, conhecemos aqui os cenários de erro que podem acontecer, vimos como tratar na prática utilizando case. Claro que você utilizar if, cond ou qualquer outra estrutura de decisão que vimos no treinamento anterior, mas essas são as formas de tratarmos os erros.
+
+[05:31] Agora, ao invés de ler um arquivo, e se eu quiser escrever nele, quais são as abordagens que podemos tomar, como fazemos para escrever em arquivos? Vamos bater esse papo no próximo vídeo.
+
+@@05
+File vs IO
+
+Neste vídeo nós vimos que tanto o módulo File quanto o módulo IO possuem métodos write.
+Qual a diferença de File.write para IO.write?
+
+File.write cria um novo processo do elixir para escrever no caminho informado.
+ 
+Alternativa correta! O File.write espera por parâmetro um caminho de um arquivo e cria um novo processo do Elixir para escrever neste arquivo. Se tivermos essa operação sendo executada várias vezes, vários processos vão ser criados. Já o IO.write espera o identificador de um arquivo já aberto, logo, não precisa criar um novo processo a cada escrita.
+Alternativa correta
+File.write escreve sem uma quebra de linha no final do arquivo. IO.write adiciona a quebra de linha.
+ 
+Alternativa errada! Essa é na verdade a diferença entre IO.write e IO.puts.
+Alternativa correta
+IO.write cria um novo processo do elixir para escrever no caminho informado.
+ 
+Alternativa errada! É o contrário.
+
+@@06
+Módulo Path
+
+[00:00] Pessoal, bem-vindos de volta. Nesse vídeo, vamos falar bem rápido sobre um módulo que pode nos ajudar um pouco a realizar alguns trabalhos. O que acontece? As funções para lidar com arquivos precisam de um caminho. O File.open() precisa do caminho correto desse arquivo para conseguir abrir e, a partir disso, manipularmos.
+[00:19] O File.read() mesma coisa, File.write() também. Todas elas trabalham com um caminho de um arquivo. Só que às vezes para eu achar esse arquivo, eu preciso de algumas manipulações no caminho. Por exemplo, imagina que eu queira encontrar um arquivo que esteja no diretório do usuário, só que eu não sei qual é o diretório do usuário, mas sabemos que em qualquer sistema UNIX o til representa o diretório do usuário.
+
+[00:46] Eu posso utilizar, por exemplo, Path.expand("~") como diretório do usuário e eu vou ter aqui o nome do arquivo, por exemplo, Path.expand("~/nome_arquivo.txt"). Estou expandindo esse caminho relativo para um caminho real, que eu posso utilizar e isso o nosso módulo Path já faz para nós. Se eu tentar fazer um Path.absname, ele vai fazer algo bastante parecido com o expand, só que ele não vai tentar fazer o parse de til, não vai tentar fazer o parse de ponto, não vai tentar fazer o parse de nada disso, de ponto ponto.
+
+[01:21] O que ele vai fazer? Ele vai pegar do diretório atual e te dar um nome completo desse caminho aqui. Vamos lá. Deixa eu pegar esse caminho teste e ele vai entregar do diretório atual, que é onde eu estou trabalhando, ele vai unir com esses detalhes aqui que eu adicionei, ele não vai tentar resolver. Falando em pegar diretório, unir diretórios, podemos fazer o Path.join de várias pastas que eu tenho.
+
+[01:45] Por exemplo, eu quero pegar a minha pasta raiz e eu quero de "usuários" e eu quero unir com "vinicius.dias". Path.join("/Users", "vinicius.dias"). Isso vai retornar esses diretórios já unidos. Se eu tirar essa barra aqui, ele vai pegar sem a barra no início, claro, e eu posso fazer aquilo de utilizar o pipe operator, por exemplo, e isso aqui eu posso passar para o Path.expand(), e vou pegar o caminho completo desse caminho que eu especifiquei, que eu fiz a junção, só que se eu pegar aqui da barra, ele me entrega a partir da raiz.
+
+[02:20] Basicamente, esse módulo Path traz para nós várias funções para lidarmos com caminhos e não arquivos. Tanto é que dando uma olhada aqui, a maioria dessas funções não interagem com o sistema de arquivos em si, ele não ver se algo existe. A exceção são algumas funções, como por exemplo expand que já utilizamos porque ela precisa saber qual é o usuário que está logado para saber qual é o diretório do usuário. Ela vai precisar acessar o sistema de arquivos em si.
+
+[02:49] Fora isso, essas funções nem acessam o sistema de arquivos. Elas são muito rápidas, só que elas não precisam que um diretório exista, não precisam que um arquivo exista e nem nada do tipo. Elas vão criar esse caminho para você. Aqui temos várias dessas funções. Para pegar o nome de uma extensão, unir caminhos, separar esses caminhos, tentar parsear o wildcard, ou seja, aqueles asteriscos e etc.
+
+[03:14] Podemos fazer muita coisa com esse módulo e ele nos ajuda a trabalhar com um sistema de arquivos. Quando falamos de sistema de arquivos, é interessante saber também que quando lidamos com esses arquivos utilizando o módulo File que já vimos, como eu já falei, ele cria um novo processo para cada operação. Se temos uma operação acontecendo dentro de uma recursão, dentro de um loop, precisamos nos preocupar com a quantidade de processos que vão ser criados.
+
+[03:41] Como eu falei, podemos deixar para o futuro bater esse papo legal sobre processos, como criar, a diferença entre um processo do sistema operacional e um processo da Erlang, do Elixir. Eu vou encerrar por aqui esse módulo de falar sobre arquivos, lidar com caminhos e etc., para podemos ver formas diferentes de executarmos os nossos códigos em Elixir.
+
+[04:02] Temos visto, executamos até aqui somente utilizando o terminal interativo. Como funciona o processo de compilação se eu quiser? Como que eu posso executar um arquivo de script sem o terminal interativo? E também como que fazemos de forma profissional? Não vamos criar um projeto profissional ainda, mas vamos bater o olho em como faríamos, que no futuro, quando realmente formos aplicar, você já ouviu falar desses termos, você já sabe o que significa e vamos poder avançar um pouco mais rápido.
+
+[04:30] Vamos falar exatamente sobre isso tudo, de como executar os nossos códigos, no próximo capítulo.
+
+@@07
+Faça como eu fiz
+
+Chegou a hora de você seguir todos os passos realizados por mim durante esta aula. Caso já tenha feito, excelente. Se ainda não, é importante que você execute o que foi visto nos vídeos para poder continuar com a próxima aula.
+
+Continue com os seus estudos, e se houver dúvidas, não hesite em recorrer ao nosso fórum!
+
+@@08
+O que aprendemos?
+
+Nesta aula, aprendemos:
+Aprendemos a ler um arquivo com Elixir
+Conhecemos os possíveis erros ao se ler um arquivo
+Aprendemos a escrever em um arquivo
+Conhecemos um pouco melhor o módulo IO
+Fomos apresentados ao módulo Path
