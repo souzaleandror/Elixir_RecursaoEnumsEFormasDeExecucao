@@ -759,3 +759,125 @@ Conhecemos os possíveis erros ao se ler um arquivo
 Aprendemos a escrever em um arquivo
 Conhecemos um pouco melhor o módulo IO
 Fomos apresentados ao módulo Path
+
+#### 08/09/2023
+
+@05-Formas de execução
+
+@@01
+Projeto da aula anterior
+PRÓXIMA ATIVIDADE
+
+Caso queira, você pode baixar aqui o projeto do curso no ponto em que paramos na aula anterior.
+
+https://github.com/alura-cursos/2310-elixir/archive/refs/tags/curso-2-aula-4.zip
+
+@@02
+Compilando um módulo
+
+[00:00] Bem-vindos de volta a mais um capítulo desse treinamento onde estamos conhecendo um pouco mais sobre o Elixir. E agora falando sobre conhecer, sobre o Elixir vamos conhecer sobre como podemos executar código em Elixir porque até agora só utilizamos o nosso terminal interativo.
+[00:17] Só que não queremos sempre precisar do terminal interativo. Existem algumas outras formas de começarmos a utilizar o nosso código.
+
+[00:25] Vou interromper o terminal interativo e vamos pegar o nosso módulo de arquivos, por exemplo. Eu quero transformar esse módulo de arquivos em um módulo compilado, em um módulo pronto para ser importando por algum código que vai ser executado.
+
+[00:44] Para isso eu vou entrar na pasta Arquivos e eu vou rodar o comando Elixir.c de compiler, eu vou rodar o comando de compilação do Elixir passando esses arquivos ponto exs para esse compilador. elixirc arquivos.exs.
+
+[01:00] Antes de fazer isso eu não vou passar esses arquivos exs, eu vou renomeá-lo de arquivos.exs para arquivos.ex. Porque esse s no final é de script, é um Elixir script, isso quer dizer que é um código para ser executado diretamente. Só que o nosso caso não é um código para ser executado diretamente, ele é um módulo que vai ser compilado e algum outro arquivo que vai executar esse módulo.
+
+[01:27] Eu tenho aqui o meu código arquivos.ex e ele sim vai ser compilado pelo Elixir. Um detalhe importante é que extensões em um sistema operacional são meras convenções. Se eu quiser chamar esse arquivo de arquivos.calopsita vai continuar compilando sem problema.
+
+[01:45] Só que é interessante seguirmos essas convenções para sabermos o que cada arquivo está fazendo. Assim como aqui nesse meu arquivo de texto, seria interessante eu ter um ponto txt. Só que, de novo, extensões são só cortesias do sistema operacional, não precisamos delas. Só que é interessante para nós humanos conseguirmos saber o que cada arquivo está fazendo.
+
+[02:04] Continuando, eu vou chamar o compilador do Elixir para esse meu arquivo chamado arquivos. Ele leva um tempinho e gera um novo arquivo, um arquivo que o Visual Studio Code não abre, por quê? Se eu tentar exibir esse arquivo ele tem um monte de caractere estranho porque ele é um arquivo binário, é um arquivo para ser executado.
+
+[02:24] Só que não diretamente pelo sistema operacional e sim por algum código Elixir. Aqui já vimos como transformar o nosso código, o nosso arquivo, o nosso módulo e um arquivo binário, em algo que vai ser executado pela máquina virtual do Elixir, pela Erlang.
+
+[02:43] Só que aí que está o detalhe, como vamos executar esse código? Por enquanto voltamos para o famigerado do terminal interativo. Se estou dentro de uma pasta que possui um “arquivo.beam”, que é um arquivo compilado da Erlang eu consigo acessar, eu consigo executar código e sem importar, sem fazer nada, sem definir o nome do arquivo eu consigo utilizar o módulo.
+
+[03:12] O MeuModulo.Arquivos.ler("arquivo") está disponível para nós, eu consigo acessar esse código mesmo que eu não tenha mais esse arquivo nesse local. Porque estou executando o meu terminal interativo ou executando o Elixir em um local que eu tenho o módulo definido, o meu “arquivo.beam”.
+
+[03:32] Essa é a primeira etapa para termos um código realmente executável pelo Elixir. Agora, como eu falei, nós temos os arquivos de Elixir e os arquivos Elixir script, ou seja, um arquivo que vai ser diretamente rodado pela nossa máquina virtual.
+
+[03:47] Vamos fazer isso, vamos criar um arquivo de script para executar esse módulo no próximo vídeo.
+
+@@03
+ElixirC
+PRÓXIMA ATIVIDADE
+
+Nesse vídeo nós usamos o "compilador" do elixir, o elixirc. Nós podemos passar um arquivo contendo um módulo para esse "compilador" e ele nos gera um novo arquivo.
+O que é gerado pelo elixirc?
+
+Um arquivo com o bytecode que será lido pela Erlang VM.
+ 
+Alternativa correta! O "compilador" elixirc está entre aspas justamente por não compilar realmente o código para um executável do sistema operacional. Ele transforma nosso código em um conjunto de instruções que a Erlang VM saiba executar.
+Alternativa correta
+Um arquivo com o código escrito em Erlang.
+ 
+Alternativa correta
+Um arquivo binário do sistema operacional.
+
+@@04
+Arquivos de script
+
+[00:00] Bem-vindos de volta. No último vídeo aprendemos a compilar um módulo do Elixir para um arquivo que vai ser meio que um arquivo "binário". Aquele binário que vimos é um bytecode que a máquina virtual do Erlang consegue parsear e executar.
+[00:17] Como podemos executar efetivamente aquilo? Conforme podemos ver na documentação, que no guia, na parte de módulos e funções ele explica sobre essa complicação.
+
+[00:27] Aqui se eu executar algum script, por exemplo, através de um terminal interativo dentro da pasta onde aquele nosso bytecode está eu tenho acesso aquele módulo.
+
+[00:37] Repare que eu posso executar um script dentro da pasta onde o bytecode está e isso pode ser através de um terminal interativo ou do modo de script, que podemos executar simplesmente tendo um arquivo de script.
+
+[00:49] Vamos fazer exatamente isso. Vamos no nosso projeto e além do arquivo de módulo, eu vou ter aqui um arquivo de script. E esse arquivo de script como ele está na mesma pasta que esse binário aqui, que o nosso módulo arquivo está, eu posso utilizar diretamente o MeuModulo.Arquivos.ler("arquivo"), e isso vai exibir aquela mensagem para nós, vai exibir o conteúdo do arquivo.
+
+[01:19] E se eu tentar ler um arquivo não existente ele vai nos retornar, posso até fazer um IO.puts, eu vou exibir a mensagem de erro. Eu não vou executar isso através do terminal interativo, eu vou executar através do Elixir.
+
+[01:40] Com o comando Elixir eu posso executar um arquivo de script. Ele vai pegar isso, carregar a máquina virtual, rodar cada uma das linhas e encerrar a nossa máquina virtual.
+
+[01:51] Isso é principalmente útil para um ponto de entrada de aplicação, para testes ou no nosso caso, para brincar um pouquinho executando os nossos módulos.
+
+[02:00] Quando eu executo isso daqui, ele levanta a máquina virtual, roda a primeira linha, roda a segunda linha, roda a segunda linha e encerra a máquina virtual.
+
+[02:07] Claro que normalmente em um cenário real, em uma aplicação real, não vamos ficar levantando e derrubando uma máquina virtual, vamos ter algum processo que mantém essa máquina virtual de pé e gerenciando, inclusive vários outros processos, caso algum processo morra, caso algum processo tenha um crash, tenha algum problema, um outro processo vai ser criado.
+
+[02:28] Isso tudo podemos alcançar utilizando uma ferramenta que torna os nossos projetos mais profissionais. Não vamos entrar nesses detalhes nesse treinamento, mas no próximo vídeo eu quero só te mostrar do que estou falando, qual o nome da ferramenta e mais ou menos como se parece um projeto profissional.
+
+[02:45] Te espero no próximo vídeo só para darmos uma espiada nessa parte que ainda não vamos tratar nesse treinamento, mas quem sabe em um futuro treinamento.
+
+@@05
+Scripts
+PRÓXIMA ATIVIDADE
+
+Neste vídeo nós executamos diretamente um código Elixir.
+O que o comando elixir faz por baixo dos panos?
+
+Sobe uma Erlang VM, roda nosso código e encerra a Erlang.
+ 
+Alternativa correta! A cada execução, um novo processo contendo a Erlang vai ser executado.
+Alternativa correta
+Anexa nosso código à Erlang VM já rodando em nosso sistema.
+ 
+Alternativa correta
+Compila nosso código e anexa o bytecode à Erlang VM já rodando em nosso sistema.
+
+@@06
+Bônus: Mix
+
+[00:00] Bem-vindos de volta. Dando uma olhada ainda no guia onde temos a parte de módulos e funções que foi onde vimos sobre compilação, ele cita uma outra ferramenta que pode nos ajudar a trabalhar com projeto profissional.
+[00:17] Ele fala que normalmente os projetos de Elixir tem uma pasta build que vai ter os artefatos compilados, aqueles nossos “arquivos.beam”, vai ter uma pasta lib que vai ter o nosso código fonte e vai ter uma pasta de testes que vão ter nossos testes automatizados.
+
+[00:32] Só que quando estamos trabalhando com projetos reais, normalmente é utilizado uma ferramenta chamada Mix. E essa ferramenta já vem para nós instalada quando instalamos o Elixir. Se eu abrir aqui o meu terminal e digitar mix help eu vou ter essa saída com vários comandos que podemos utilizar.
+
+[00:49] Para eu criar um projeto utilizando o Mix, ao invés de criar uma nova pasta e sair criando meus arquivos eu utilizo mix new e o nome do projeto que eu quero criar, isso já vai criar uma pasta, um módulo principal e já vai definir todas aquelas pastas, já vai definir as configurações e ele vai começar a nos ajudar.
+
+[01:08] Se dermos uma olhada aqui na documentação do Mix, ele é basicamente uma ferramenta de build, só que é uma ferramenta de build muito poderosa que nos deixa fazer o build do projeto, definir dependências e buscá-las, definir as configurações do projeto, definir aplicações que vamos utilizar dentro do nosso projeto. Enfim, muita coisa, é uma ferramenta muito poderosa.
+
+[01:30] Ela depende de um arquivo de script, ou seja, um arquivo que ele vai ser executado e gerar nosso artefato, vai gerar a aplicação em si que a Erlang vai rodar. Aqui temos as definições do nosso projeto que vão ser chamadas pelo projeto do Mix, o Mix tem o código dele, tem a classe dele que vai ser executado, vai chamar as definições do nosso projeto e aí podemos ter aqui dependências, configurações, aplicações extra, tarefas, enfim, muita coisa.
+
+[01:58] Vários ambientes diferentes para executar. Por exemplo, em um ambiente de produção eu posso não ter debug, não ter logs demais e etc. Já no meu ambiente de desenvolvimento eu quero ter o máximo de logs e o máximo de debug possível, no ambiente de testes eu posso me conectar a um serviço externo. Enfim, eu posso ter ambientes diferentes e o Mix vai cuidar de tudo isso para nós.
+
+[02:20] É através de um projeto utilizando o Mix que eu posso, por exemplo, anexar aplicações que ficam verificando meus processos, eu posso ter um supervisor de meus processos. Se algum processo do Elixir morre ele já cria outro, ele garante que sempre existe um número x processos de path. Isso tudo é feito através dessa ferramenta chamada Mix.
+
+[02:44] De novo, ela já vem instalada quando eu instalo o Erlang e o Elixir, na verdade. Eu já tenho tudo aqui pronto para começar projetos profissionais com Elixir. Aqui no guia, assim como vimos vários detalhes da linguagem em si, temos todo um guia específico para o Mix.
+
+[03:03] Aqui vemos a introdução, depois começamos a falar sobre a Agente, servidores, os supervisor, como eu falei, e muitas outras coisas que podemos talvez, quem sabe tratar em um treinamento futuro. Podemos trazer esse detalhe criando uma aplicação real utilizando o Mix.
+
+[03:18] Como esse treinamento já está longo e o foco era a linguagem e não o ecossistema Elixir, vamos encerrar por aqui com aquele famoso tchau, tchau. No próximo vídeo, recapitulamos tudo o que vimos no próximo treinamento.
