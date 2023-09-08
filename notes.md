@@ -766,7 +766,6 @@ Fomos apresentados ao módulo Path
 
 @@01
 Projeto da aula anterior
-PRÓXIMA ATIVIDADE
 
 Caso queira, você pode baixar aqui o projeto do curso no ponto em que paramos na aula anterior.
 
@@ -802,7 +801,6 @@ Compilando um módulo
 
 @@03
 ElixirC
-PRÓXIMA ATIVIDADE
 
 Nesse vídeo nós usamos o "compilador" do elixir, o elixirc. Nós podemos passar um arquivo contendo um módulo para esse "compilador" e ele nos gera um novo arquivo.
 O que é gerado pelo elixirc?
@@ -844,7 +842,6 @@ Arquivos de script
 
 @@05
 Scripts
-PRÓXIMA ATIVIDADE
 
 Neste vídeo nós executamos diretamente um código Elixir.
 O que o comando elixir faz por baixo dos panos?
@@ -881,3 +878,55 @@ Bônus: Mix
 [03:03] Aqui vemos a introdução, depois começamos a falar sobre a Agente, servidores, os supervisor, como eu falei, e muitas outras coisas que podemos talvez, quem sabe tratar em um treinamento futuro. Podemos trazer esse detalhe criando uma aplicação real utilizando o Mix.
 
 [03:18] Como esse treinamento já está longo e o foco era a linguagem e não o ecossistema Elixir, vamos encerrar por aqui com aquele famoso tchau, tchau. No próximo vídeo, recapitulamos tudo o que vimos no próximo treinamento.
+
+@@07
+Faça como eu fiz
+
+Chegou a hora de você seguir todos os passos realizados por mim durante esta aula. Caso já tenha feito, excelente. Se ainda não, é importante que você execute o que foi visto nos vídeos para poder continuar com os próximos cursos que tenham este como pré-requisito.
+
+Continue com os seus estudos, e se houver dúvidas, não hesite em recorrer ao nosso fórum!
+
+@@08
+Projeto final do curso
+
+Caso queira, você pode baixar aqui o projeto completo implementado neste curso.
+
+https://github.com/alura-cursos/2310-elixir/archive/refs/tags/curso-2-aula-5.zip
+
+@@09
+O que aprendemos?
+
+Nesta aula, aprendemos:
+Aprendemos a usar o elixirc para "compilar" um módulo
+Vimos como usar um módulo compilado pelo interpretador "elixir"
+Falamos um pouco sobre o Mix
+
+@@10
+Conclusão
+
+[00:00] Parabéns por terem chegado ao final de mais um treinamento de Elixir e nesse treinamento nos aprofundamos um pouco mais e alguns detalhes da sintaxe. Saímos um pouco do básico, de coisas que toda linguagem tem e entrou em algumas especificidades, coisas do próprio Elixir.
+[00:17] Inicialmente aprendemos sobre as guard clauses, as cláusulas de guarda. Entendemos que cada definição de uma função com o mesmo nome é uma cláusula e podemos ter guardas para essa cláusula, para saber quando ela vai ser executada ou não.
+
+[00:34] A partir dessas cláusulas fomos avançando, vimos sobre parâmetros padrão, como definir parâmetros padrão e como ter uma definição de cabeçalho de função. Batemos um papo sobre as convenções de nome, por exemplo, aqui utilizamos um ponto de interrogação no nome de uma função e isso é relativamente comum em Elixir e entendemos o motivo disso.
+
+[00:56] Entramos no assunto de recursão, praticamos um pouco, cumprimos o desafio que eu deixei no treinamento anterior criando a tabuada que retorna uma lista ao invés de exibir todos os dados. Falamos bastante sobre tail recursion.
+
+[01:11] Aqui falando sobre tail recursion, falamos sobre o que é isso, como implementar, a dificuldade que isso traz e as vantagens falando sobre tail call optimization.
+
+[01:23] Em cima disso entramos falando sobre enumeráveis, sobre valores que são enumeráveis como, por exemplo, listas, mapas e trabalhamos também com intervalos, trabalhamos com funções do módulo Enum.
+
+[01:35] E falando sobre funções do módulo Enum, quando precisamos juntar várias dessas funções é muito comum utilizarmos o operador de pipe, o pipe operator.
+
+[01:44] Falamos um pouco de performance de novo falando sobre o módulo de streams, para termos a avaliação preguiçosa, a lazy evaluation das operações através dos streams.
+
+[01:55] Terminando isso entramos na parte de arquivos, brincamos um pouco lendo arquivos, escrevendo arquivos e terminamos com o nosso módulo bem simples que ler o arquivo ou exibe uma mensagem de erro.
+
+[02:06] Nós também falamos de escrita, falamos, claro, sobre performance na hora de trabalhar com arquivos. E no final, como você ter percebido, temos um arquivo com uma extensão diferente.
+
+[02:16] Compilamos esse módulo e o executamos através de um arquivo de script. No final, até batemos um papo sobre o Mix, assunto que podemos tratar em um treinamento futuro.
+
+[02:27] Se durante esse treinamento e o assunto desse treinamento ficou alguma dúvida não hesite, você pode abrir uma questão lá no fórum, eu tenho que responder pessoalmente sempre que possível, mas quando eu não consigo temos uma vasta comunidade cheia de pessoas que com certeza conseguirão te ajudar.
+
+[02:41] Alunos, moderadores, instrutores, com certeza alguém vai conseguir responder sua dúvida. Não deixe a dúvida em aberto. Inclusive, fica aqui o convite para você também responder às dúvidas de outras pessoas que postam lá. Porque assim a comunidade cresce, você conhece novas pessoas e faz o network bem interessante.
+
+[02:59] Mais uma vez parabéns por ter chegado ao final de mais um treinamento, espero que você esteja gostando dessa sua jornada com o Elixir e espero te ver em futuros treinamentos aqui da Alura. Forte abraço e tchau, tchau.
